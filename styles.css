@@ -6,6 +6,8 @@
 
 .calculator {
     border: 1px solid black;
+
+    font-size: 0px;
 }
 
 .display {
@@ -15,11 +17,14 @@
     border: 1px solid black;
 }
 
+.bot-numbers {
+}
+
 button {
     width: 55px;
     height: 55px;
 }
 
 .zero-button {
-    width: 114px;
+    width: 110px;
 }

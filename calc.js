@@ -1,3 +1,11 @@
+const buttons = document.querySelectorAll("#btn")
+
+for (btn of buttons) {
+    btn.addEventListener("click", function(e) {
+    const currentValue = e.target.value 
+    console.log(currentValue);})
+    }
+
 function add(a, b) {
     return a + b
 }
