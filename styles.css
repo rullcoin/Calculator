@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    border: 1px solid black;
+}
+
+.display {
+    display: flex;
+    justify-content: end;
+    font-size: 50px;
+    border: 1px solid black;
+}
+
+button {
+    width: 55px;
+    height: 55px;
+}
+
+.zero-button {
+    width: 114px;
+}
