@@ -6,44 +6,48 @@ let firstNumber = ''
 let firstCheck = false
 let secondNumber = ''
 let operator = ''
-
-let equal = '='
+let operatorCheck = false
 
 for (btn of buttons) {
     btn.addEventListener("click", function(e) {
+        const targetClass = e.target.classList
 
-    // if (firstNumber && operator) {
-    //     const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
-
-    //     console.log(calcValue);
-    //     firstNumber = calcValue
-    //     console.log(firstNumber);
-    // }
-
-    if (firstCheck === true){
+    if (firstCheck === true && targetClass.contains("number")){
         secondNumber += parseInt(e.target.value);
         display.innerHTML = secondNumber
         console.log(secondNumber);
+
+    } 
+    // Needed to fix if you press an operator multiple times
+    else if (firstCheck === true && secondNumber) {
+        if (e.target.value === "+" || e.target.value === "-" || e.target.value === '*' || e.target.value === '/' && operator === '' ) {
+            console.log("+ was pressed after second number");
+            const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
+            firstNumber = calcValue
+            display.innerHTML = calcValue
+            secondNumber = ''
+            operator = ''
+            firstCheck = false
+            console.log(calcValue);
+        }
     }
+    // Check if second number exists, if not then check if it's an operator, if not then its the first number
     if (!secondNumber) {
-        if (e.target.value === "+" || e.target.value === "-" || e.target.value === '*' || e.target.value === '/' ){
-            firstCheck = true
-            operator = e.target.value 
-        } else {
+            if (e.target.value === "+" || e.target.value === "-" || e.target.value === '*' || e.target.value === '/' ){
+                firstCheck = true
+                operatorCheck === true
+                console.log("Operator check true");
+                operator = e.target.value 
+            
+        } else if (targetClass.contains("number") === true) {
             firstNumber += parseInt(e.target.value)
             display.innerHTML = firstNumber
             console.log(firstNumber);
         }
-        
     }
 
-    // if (firstCheck === true && operator) {
-    //     const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
-    //     display.innerHTML = calcValue
-    //     console.log(calcValue);
-    // }
-
-    if (e.target.value === equal) {
+    // Calculates and resets values if equal is pressed (Doesn't care if #1 & #2 are pressed)
+    if (e.target.value === '=' && secondNumber) {
         const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
         firstNumber = calcValue
         display.innerHTML = calcValue
@@ -55,8 +59,6 @@ for (btn of buttons) {
 
     if (e.target.value === "clear") {
        clearDisplay()
-    } else {
-        //display.innerHTML = 0
     }
     }
 )}
@@ -77,7 +79,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    result = a / b
+    if (a === 0 || b === 0) {
+        result = display.innerHTML = "No!"
+    } else {
+     result = a / b
+    }
     return result
 }
 
@@ -99,4 +105,11 @@ function clearDisplay() {
     firstCheck = false
     operator = ''
     display.innerHTML = 0
+}
+
+function resetState() {
+    firstNumber = ''
+    secondNumber = ''
+    firstCheck = false
+    operator = ''
 }
