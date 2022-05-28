@@ -30,15 +30,26 @@ body {
     border-radius: 8px;
 }
 
-.display {
-    display: flex;
+.screen {
     background-color: white;
     justify-content: end;
-    font-size: 50px;
     border: 1px solid black;
+    font-size: 50px;
     border-radius: 8px;
     overflow: hidden;
     width: 300px;
+}
+
+.display {
+    display: flex;
+    justify-content: end;
+}
+
+.last-display {
+    display: flex;
+    justify-content: end;
+    min-height: 50px;
+    font-size: 30px;
 }
 
 button {
@@ -49,6 +60,10 @@ button {
 button:hover {
     background-color: rgb(214, 207, 143);
 }
+
+button:active{
+    background-color:rgb(69, 119, 104);
+  }
 
 .zero-button {
     width: 150px;

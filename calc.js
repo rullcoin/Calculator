@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll("#btn")
 const display = document.getElementById("display")
+const lastDisplay = document.getElementById("last-display") 
 const clearButton = document.getElementById('clear-button')
 
 let firstNumber = ''
@@ -7,15 +8,22 @@ let firstCheck = false
 let secondNumber = ''
 let operator = ''
 
+
+
 // need "." numbers to be functional
 
 for (btn of buttons) {
     btn.addEventListener("click", function(e) {
         const targetClass = e.target.classList
+
+        
     // Check if #1 exists and displays number 2
     if (firstCheck === true && targetClass.contains("number")){
-        secondNumber += parseInt(e.target.value);
+        secondNumber += parseFloat(e.target.value);
         display.textContent = secondNumber
+
+
+        lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
     } 
     // Needed to fix if you press an operator multiple times
     else if (firstCheck === true && secondNumber) {
@@ -23,40 +31,52 @@ for (btn of buttons) {
             e.target.value === "-" || 
             e.target.value === '*' || 
             e.target.value === '/' ) {
-            const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
+            const calcValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber))
             firstNumber = calcValue
             display.textContent = calcValue
             secondNumber = ''
             operator = ''
             firstCheck = false
+
+
+            lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
         }
     }
     // Check if second number exists, if not then check if it's an operator, if not then its the first number
     if (!secondNumber) {
         if (targetClass.contains("number") === true) {
-            firstNumber += parseInt(e.target.value)
+            firstNumber += parseFloat(e.target.value)
             display.textContent = firstNumber
+
+
+            lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
         }
         else if (targetClass.contains("operator") === true && firstNumber){
                 firstCheck = true
                 operator = e.target.value 
+
+
+                lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
         } 
     }
 
     // Calculates and resets values if equal is pressed and number 2 exists)
     if (e.target.value === '=' && secondNumber) {
-        const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
+        const calcValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber))
         firstNumber = calcValue
         display.textContent = calcValue
         secondNumber = ''
         operator = ''
         firstCheck = false
+
+        lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
     }
 
     if (e.target.value === "clear") {
        clearDisplay()
     }
     }
+    
 )}
 
 function add(a, b) {
@@ -104,7 +124,8 @@ function clearDisplay() {
     secondNumber = ''
     firstCheck = false
     operator = ''
-    display.innerHTML = 0
+    display.textContent = 0
+    lastDisplay.textContent = " "
 }
 
 function resetState() {
