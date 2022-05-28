@@ -6,10 +6,8 @@ let firstNumber = ''
 let firstCheck = false
 let secondNumber = ''
 let operator = ''
-let operatorCheck = false
 
-// if press operator first, error
-
+// need "." numbers to be functional
 
 for (btn of buttons) {
     btn.addEventListener("click", function(e) {
@@ -17,15 +15,17 @@ for (btn of buttons) {
     // Check if #1 exists and displays number 2
     if (firstCheck === true && targetClass.contains("number")){
         secondNumber += parseInt(e.target.value);
-        display.innerHTML = secondNumber
+        display.textContent = secondNumber
     } 
     // Needed to fix if you press an operator multiple times
     else if (firstCheck === true && secondNumber) {
-        if (e.target.value === "+" || e.target.value === "-" || e.target.value === '*' || e.target.value === '/' ) {
-            console.log("+ was pressed after second number");
+        if (e.target.value === "+" || 
+            e.target.value === "-" || 
+            e.target.value === '*' || 
+            e.target.value === '/' ) {
             const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
             firstNumber = calcValue
-            display.innerHTML = calcValue
+            display.textContent = calcValue
             secondNumber = ''
             operator = ''
             firstCheck = false
@@ -35,9 +35,8 @@ for (btn of buttons) {
     if (!secondNumber) {
         if (targetClass.contains("number") === true) {
             firstNumber += parseInt(e.target.value)
-            display.innerHTML = firstNumber
+            display.textContent = firstNumber
         }
-
         else if (targetClass.contains("operator") === true && firstNumber){
                 firstCheck = true
                 operator = e.target.value 
@@ -48,7 +47,7 @@ for (btn of buttons) {
     if (e.target.value === '=' && secondNumber) {
         const calcValue = operate(operator, parseInt(firstNumber), parseInt(secondNumber))
         firstNumber = calcValue
-        display.innerHTML = calcValue
+        display.textContent = calcValue
         secondNumber = ''
         operator = ''
         firstCheck = false
@@ -76,10 +75,10 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (a === 0 || b === 0) {
+    if (b === 0) {
         result = display.innerHTML = "No!"
     } else {
-     result = a / b
+     result = Math.round(a / b * 100) / 100
     }
     return result
 }
@@ -96,7 +95,7 @@ function operate(operator, a, b) {
         return Math.round(calc * 100) / 100
     } else if (operator === "/") {
         calc = divide(a, b)
-        return Math.round(calc * 100) / 100
+        return calc
     }
 }
 

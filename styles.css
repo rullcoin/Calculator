@@ -37,14 +37,14 @@ body {
     font-size: 50px;
     border: 1px solid black;
     border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
 }
 
 button {
     width: 75px;
     height: 75px;
 }
-
-
 
 button:hover {
     background-color: rgb(214, 207, 143);
