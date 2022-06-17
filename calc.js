@@ -8,15 +8,12 @@ let firstCheck = false
 let secondNumber = ''
 let operator = ''
 
-
-
 // need "." numbers to be functional
 
 for (btn of buttons) {
     btn.addEventListener("click", function(e) {
         const targetClass = e.target.classList
 
-        
     // Check if #1 exists and displays number 2
     if (firstCheck === true && targetClass.contains("number")){
         secondNumber += parseFloat(e.target.value);
@@ -24,22 +21,22 @@ for (btn of buttons) {
 
 
         lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
-    } 
+    }
     // Needed to fix if you press an operator multiple times
     else if (firstCheck === true && secondNumber) {
         if (e.target.value === "+" || 
             e.target.value === "-" || 
             e.target.value === '*' || 
             e.target.value === '/' ) {
-            const calcValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber))
-            firstNumber = calcValue
-            display.textContent = calcValue
-            secondNumber = ''
-            operator = ''
-            firstCheck = false
+                const calcValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber))
+                firstNumber = calcValue
+                display.textContent = calcValue
+                secondNumber = ''
+                operator = ''
+                firstCheck = false
 
 
-            lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
+                lastDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`
         }
     }
     // Check if second number exists, if not then check if it's an operator, if not then its the first number
@@ -79,6 +76,7 @@ for (btn of buttons) {
     
 )}
 
+// Calculations
 function add(a, b) {
     result = a + b
     return result
@@ -96,13 +94,14 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b === 0) {
-        result = display.innerHTML = "No!"
+        result = display.textContent = "No!"
     } else {
      result = Math.round(a / b * 100) / 100
     }
     return result
 }
 
+// Functions needed to calculate
 function operate(operator, a, b) {
     if (operator === "+") {
         calc = add(a, b)
@@ -119,18 +118,13 @@ function operate(operator, a, b) {
     }
 }
 
+
+// Clear
 function clearDisplay() {
-    firstNumber = ''
+firstNumber = ''
     secondNumber = ''
     firstCheck = false
     operator = ''
     display.textContent = 0
     lastDisplay.textContent = " "
-}
-
-function resetState() {
-    firstNumber = ''
-    secondNumber = ''
-    firstCheck = false
-    operator = ''
 }
